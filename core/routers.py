@@ -7,6 +7,6 @@ router = routers.SimpleRouter()
 
 router.register(r'users', UserViewSet, basename='user')
 
-urlpattern = [
+urlpatterns = [
     *router.urls,
 ]
