@@ -24,8 +24,8 @@ class AbstractModel(models.Model):
         default=uuid.uuid4,
         editable=False,
     )
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     
     object = AbstractManager()
     

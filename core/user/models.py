@@ -11,6 +11,10 @@ from django.http import Http404
 
 from core.abstract.models import AbstractModel, AbstractManager
 
+def user_directory_path(instance, filename):
+    return "user_{0}/{1}".format(instance.public_id, filename)
+
+
 class UserManager(BaseUserManager, AbstractManager):
     def create_user(self, username, email, password=None, **kwargs):
         """Create and return a `User` with an email, phone
@@ -50,9 +54,13 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     username = models.CharField(db_index=True, max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    
     email = models.EmailField(db_index=True, unique=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    
+    bio = models.TextField(null=True)
+    avatar = models.ImageField(null=True, blank=True, upload_to=user_directory_path)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
