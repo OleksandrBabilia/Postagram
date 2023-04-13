@@ -24,6 +24,12 @@ class PostSerializer(AbstractSerializer):
         rep["author"] = UserSerializer(author).data
         return rep
     
+    def update(self, instance, validated_data):
+        if not instance.edited:
+            validated_data['edited'] = True
+        return super().update(instance, validated_data)
+    
+    
     class Meta:
         model = Post
         fields = ['id', 'author', 'body', 'edited', 'created', 'updated']
