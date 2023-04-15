@@ -15,7 +15,7 @@ class PostSerializer(AbstractSerializer):
     
     liked = serializers.SerializerMethodField()
     likes_count = serializers.SerializerMethodField()
-    
+
     def validate_author(self, value):
         if self.context["request"].user != value:
             raise ValidationError("You can`t create a post for another user.")
@@ -24,7 +24,7 @@ class PostSerializer(AbstractSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         author = User.objects.get_object_by_public_id(rep["author"])
-        rep["author"] = UserSerializer(author).data
+        rep["author"] = UserSerializer(author, context=self.context).data
         return rep
     
     def update(self, instance, validated_data):
@@ -34,17 +34,17 @@ class PostSerializer(AbstractSerializer):
     
     def get_liked(self, instance):
         request = self.context.get('request', None)
-        
+
         if request is None or request.user.is_anonymous:
             return False
-        
-        return request.user.has_liked(instance)
-    
+
+        return request.user.has_liked_post(instance)
+
     def get_likes_count(self, instance):
-        return self.liked_by.count()
-    
+        return instance.liked_by.count()
+
     class Meta:
         model = Post
-        fields = ['id', 'author', 'body', 'edited', 'liked', 
-                  'like_count' 'created', 'updated']
+        fields = ["id", "author", "body", "edited", "liked",
+                  "likes_count", "created", "updated"]
         read_only_fields = ["edited"]

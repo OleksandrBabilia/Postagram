@@ -1,4 +1,4 @@
-from rest_framework.permissions import IsAuthenticated
+from .permissions import UserPermission
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import status 
@@ -11,7 +11,7 @@ from .serializers import PostSerializer
 class PostViewSet(AbstractViewSet):
     http_method_names = ('post', 'get', 'put', 'delete', )
     serializer_class = PostSerializer
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (UserPermission, )
     
     def get_queryset(self):
         return Post.objects.all()
@@ -22,7 +22,7 @@ class PostViewSet(AbstractViewSet):
         return obj
     
     def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
