@@ -82,6 +82,6 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     def remove_like(self, post):
         return self.posts_liked.remove(post)
     
-    def has_like(self, post):
+    def has_liked_post(self, post):
         return self.posts_liked.filter(pk=post.pk).exists()
     
