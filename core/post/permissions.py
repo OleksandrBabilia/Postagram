@@ -16,7 +16,7 @@ class UserPermission(BasePermission):
         return bool(request.user and request.user.is_authenticated)
     
     def has_permission(self, request, view):  
-        if view.basename in ["post"]:
+        if view.basename in ["post", "post-comment"]:
             if request.user.is_anonymous:
                 return request.method in SAFE_METHODS
             
