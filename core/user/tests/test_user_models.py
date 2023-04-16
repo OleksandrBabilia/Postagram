@@ -1,5 +1,6 @@
 import pytest
-from .models import User
+from core.user.models import User
+
 
 @pytest.mark.django_db
 def test_create_user():
