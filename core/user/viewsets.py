@@ -4,10 +4,11 @@ from rest_framework import viewsets
 from .serializers import UserSerializer
 from .models import User
 from core.abstract.viewsets import AbstractViewSet
+from core.post.permissions import UserPermission
 
 class UserViewSet(AbstractViewSet):
     http_method_names = ('patch', 'get',)
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, UserPermission)
     serializer_class = UserSerializer
     
     def get_queryset(self):
