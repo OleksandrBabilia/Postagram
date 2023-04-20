@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosService from "../helpers/axios";
 
 function useUserActions() {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ function useUserActions() {
     login,
     register,
     logout,
+    edit,
   };
 
   function login(data) {
@@ -23,6 +25,26 @@ function useUserActions() {
       setUserData(res.data);
       navigate("/");
     });
+  }
+
+  function edit(data, userId) {
+    return axiosService
+      .patch(`${baseURL}/user/${userId}/`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        // Registering the account in the store
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({
+            access: getAccessToken(),
+            refresh: getRefreshToken(),
+            user: res.data,
+          })
+        );
+      });
   }
 
   function logout() {
