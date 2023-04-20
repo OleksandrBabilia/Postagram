@@ -35,7 +35,6 @@ function useUserActions() {
         },
       })
       .then((res) => {
-        // Registering the account in the store
         localStorage.setItem(
           "auth",
           JSON.stringify({
