@@ -41,11 +41,13 @@ function LoginForm() {
       noValidate
       validated={validated}
       onSubmit={handleSubmit}
+      data-testid="login-form"
     >
       <Form.Group className="mb-3">
         <Form.Label>Username</Form.Label>
         <Form.Control
           value={form.username}
+          data-testid="username-field"
           onChange={(e) => setForm({ ...form, username: e.target.value })}
           required
           type="text"
@@ -60,6 +62,7 @@ function LoginForm() {
         <Form.Label>Password</Form.Label>
         <Form.Control
           value={form.password}
+          data-testid="password-field"
           minLength="8"
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
@@ -73,7 +76,11 @@ function LoginForm() {
 
       <div className="text-content text-danger">{error && <p>{error}</p>}</div>
 
-      <Button variant="primary" type="submit">
+      <Button
+        disabled={!form.password || !form.username}
+        variant="primary"
+        type="submit"
+      >
         Submit
       </Button>
     </Form>
