@@ -60,13 +60,13 @@ function Post(props) {
                 className="me-2 border border-primary border-2"
               />
               <div className="d-flex flex-column justify-content-start align-self-center mt-2">
-                <p className="fs-6 m-0">{post.author.name}</p>
+                <p className="fs-6 m-0">{post.author.username}</p>
                 <p className="fs-6 fw-lighter">
                   <small>{format(post.created)}</small>
                 </p>
               </div>
             </div>
-            {user.name === post.author.name && (
+            {user.username === post.author.username && (
               <div>
                 <Dropdown>
                   <Dropdown.Toggle as={MoreToggleIcon}></Dropdown.Toggle>
@@ -102,7 +102,6 @@ function Post(props) {
                 <small>{post.likes_count} like</small>
               </p>
             </div>
-            
           </div>
         </Card.Body>
         <Card.Footer className="d-flex bg-white w-50 justify-content-between border-0">
