@@ -102,19 +102,17 @@ function Post(props) {
                 <small>{post.likes_count} like</small>
               </p>
             </div>
-            {!isSinglePost && (
-              <p className="ms-1 fs-6">
-                <small>
-                  <Link to={`/post/${post.id}/`}>
-                    {post.comments_count} comments
-                  </Link>
-                </small>
-              </p>
-            )}
+            
           </div>
         </Card.Body>
         <Card.Footer className="d-flex bg-white w-50 justify-content-between border-0">
-          <div className="d-flex flex-row">
+          <div className="d-flex flex-row" onClick={() => {
+                if (post.liked) {
+                  handleLikeClick("remove_like");
+                } else {
+                  handleLikeClick("like");
+                }
+              }}>
             <LikeOutlined
               style={{
                 width: "24px",
@@ -123,16 +121,9 @@ function Post(props) {
                 fontSize: "20px",
                 color: post.liked ? "#0D6EFD" : "#C4C4C4",
               }}
-              onClick={() => {
-                if (post.liked) {
-                  handleLikeClick("remove_like");
-                } else {
-                  handleLikeClick("like");
-                }
-              }}
             />
-            <p className="ms-1">
-              <small>Like</small>
+            <p className="ms-1" >
+              <small >Like</small>
             </p>
           </div>
           {!isSinglePost && (
@@ -146,9 +137,16 @@ function Post(props) {
                   color: "#C4C4C4",
                 }}
               />
-              <p className="ms-1 mb-0">
-                <small>Comment</small>
-              </p>
+             {!isSinglePost && (
+              <p className="ms-1 fs-6">
+              <small>
+                <Link to={`/post/${post.id}/`} style={{ textDecoration: "none", color: "black"}}>
+                  {post.comments_count} Read comments
+                </Link>
+              </small>
+            </p>
+            
+            )}
             </div>
           )}
         </Card.Footer>

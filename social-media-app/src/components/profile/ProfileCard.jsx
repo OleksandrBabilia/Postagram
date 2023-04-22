@@ -13,7 +13,7 @@ function ProfileDetails(props) {
 
   return (
     <div>
-      <div className="d-flex flex-row border-bottom p-5">
+      <div className="d-flex flex-row border-bottom p-7 mt-2 mb-2">
         <Image
           src={user.avatar}
           roundedCircle
@@ -21,7 +21,7 @@ function ProfileDetails(props) {
           height={120}
           className="me-5 border border-primary border-2"
         />
-        <div className="d-flex flex-column justify-content-start align-self-center mt-2">
+        <div className="d-flex flex-column justify-content-start align-self-center ml-2">
           <p className="fs-4 m-0">{user.name}</p>
           <p className="fs-5">{user.bio ? user.bio : "(No bio.)"}</p>
           <p className="fs-6">
