@@ -18,7 +18,7 @@ jobs:
         docker-compose logs
     - name: Running Tests inside Docker containers
       run: |
-        docker-compose exec -T api pytest
+        docker-compose exec -T api pytest --no-capture
 
   deploy:
     name: Deploying on EC2 via SSH
