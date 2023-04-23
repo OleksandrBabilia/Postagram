@@ -1,6 +1,8 @@
 version: '3.8'
 
 services:
+  redis:
+    image: redis:alpine
   nginx:
     container_name: postagram_web
     restart: on-failure
@@ -14,13 +16,10 @@ services:
       - api
 
   api:
-    mem_limit: 2g
     container_name: postagram_api
     build: .
     restart: always
     env_file: .env
-    ports:
-      - "8000:8000"
     command: >
       sh -c "python manage.py migrate --no-input && gunicorn CoreRoot.wsgi:application --bind 0.0.0.0:8000"
     volumes:
@@ -28,14 +27,13 @@ services:
      - uploads_volume:/app/uploads
     depends_on:
      - db
-
+     - redis
   db:
     container_name: postagram_db
     image: postgres:14.3-alpine
     env_file: .env
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-
 volumes:
   uploads_volume:
   postgres_data:
