@@ -47,8 +47,12 @@ function useUserActions() {
   }
 
   function logout() {
-    localStorage.removeItem("auth");
-    navigate("/login");
+    return axiosService
+      .post(`${baseURL}/auth/logout/`, { refresh: getRefreshToken() })
+      .then(() => {
+        localStorage.removeItem("auth");
+        navigate("/login");
+      });
   }
 }
 
