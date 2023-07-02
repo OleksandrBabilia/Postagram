@@ -3,10 +3,10 @@ from rest_framework import viewsets, status, permissions
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
+from core.post.permissions import UserPermission 
 
 class LogoutViewSet(viewsets.ViewSet):
-    authentication_classes = ()
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (UserPermission,)
     http_method_names = ["post"]
     
     def create(self, request, *args, **kwargs):
