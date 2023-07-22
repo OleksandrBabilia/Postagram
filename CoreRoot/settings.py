@@ -168,7 +168,7 @@ DEFAULT_AVATAR_URL = "https://avatars.dicebear.com/api/identicon/.svg"
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://localhost:6379",
+        "LOCATION": "redis://postagram-redis-1:6379",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
